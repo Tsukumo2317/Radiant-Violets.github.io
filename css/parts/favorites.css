@@ -1,0 +1,233 @@
+/* РР·Р±СЂР°РЅРЅРѕРµ (drawer) */
+.fav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    z-index: 1400;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.fav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.fav-drawer {
+    width: min(420px, 92vw);
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(12px);
+    opacity: 0;
+    transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.fav-overlay.active .fav-drawer {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.fav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.fav-title {
+    font-family: "Prata", serif;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.fav-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 10px;
+}
+
+.fav-close:hover {
+    background: #f4f1fb;
+    color: #8B5CF6;
+}
+
+.fav-items {
+    padding: 14px 18px;
+    overflow: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fav-empty {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    padding: 26px 0;
+}
+
+.fav-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 12px;
+    border: 1px solid #eee;
+    padding: 10px;
+    background: #fff;
+}
+
+.fav-item-img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #f5f2ed;
+}
+
+.fav-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.fav-item-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.fav-item-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #2d1b3e;
+    line-height: 1.35;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.fav-remove {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #9ca3af;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    flex: 0 0 auto;
+}
+
+.fav-remove:hover {
+    background: #f4f1fb;
+    color: #8B5CF6;
+}
+
+.fav-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.fav-item-price {
+    font-weight: 800;
+    color: #b97f3a;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.fav-add-to-cart {
+    border: none;
+    background: #8B5CF6;
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.fav-add-to-cart:hover {
+    background: #6d3fd9;
+}
+
+/* Р‘РµР№РґР¶ РєРѕР»РёС‡РµСЃС‚РІР° РЅР° РёРєРѕРЅРєРµ РёР·Р±СЂР°РЅРЅРѕРіРѕ */
+.nav_item_fav {
+    position: relative;
+}
+
+.fav_badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #8B5CF6;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 6px 18px rgba(139, 92, 246, 0.35);
+}
+
+.fav_badge.active {
+    display: inline-flex;
+}
+
+@media (max-width: 560px) {
+    .fav-overlay {
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .fav-drawer {
+        width: 100%;
+        height: min(86vh, 680px);
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+        box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.18);
+        transform: translateY(100%);
+    }
+
+    .fav-overlay.active .fav-drawer {
+        transform: translateY(0);
+    }
+
+    .fav-header {
+        padding: 16px 14px 12px;
+    }
+
+    .fav-items {
+        padding: 12px 14px;
+    }
+}
+
+

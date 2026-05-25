@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа — RADIANT VIOLETS</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link type="image/x-icon" href="./icon/Logo.png" rel="shortcut icon">
+    <link type="image/x-icon" href="./icon/Logo.png" rel="icon">
+</head>
+<body>
+    <div class="menu_bar">
+        <input type="checkbox" id="burger_menu" class="burger_toggle" aria-hidden="true">
+        <label for="burger_menu" class="burger_btn" aria-label="Открыть меню категорий">
+            <span class="burger_line"></span>
+            <span class="burger_line"></span>
+            <span class="burger_line"></span>
+        </label>
+
+        <label for="burger_menu" class="burger_backdrop" aria-hidden="true"></label>
+        <div class="burger_drawer" role="navigation" aria-label="Категории">
+            <ul class="burger_nav">
+                <li><a class="burger_link" href="./catalog.html?category=rings">КОЛЬЦА</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=earrings">СЕРЬГИ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=bracelets">БРАСЛЕТЫ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=necklaces">ПОДВЕСКИ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=necklaces">ОЖЕРЕЛЬЯ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=engagement">ПОМОЛВОЧНЫЕ КОЛЬЦА</a></li>
+            </ul>
+        </div>
+
+        <div class="logo"><a href="./index.html"><img class="logo_img" src="./icon/Logo.png" alt=""></a><span class="logo_text">RADIANT VIOLETS</span></div>
+
+        <ul class="nav">
+            <li class="nav_item"><a class="nav_link" href="./catalog.html?category=rings">КОЛЬЦА</a></li>
+            <li class="nav_item"><a class="nav_link" href="./catalog.html?category=earrings">СЕРЬГИ</a></li>
+            <li class="nav_item"><a class="nav_link" href="./catalog.html?category=bracelets">БРАСЛЕТЫ</a></li>
+            <li class="nav_item"><a class="nav_link" href="./catalog.html?category=necklaces">ПОДВЕСКИ</a></li>
+            <li class="nav_item"><a class="nav_link" href="./catalog.html?category=necklaces">ОЖЕРЕЛЬЯ</a></li>
+        </ul>
+        <ul class="nav_btn">
+            <li class="nav_item_btn nav_item_search" role="button" tabindex="0" aria-label="Поиск по каталогу"><img class="nav_btn_icon" src="./icon/search-btn-icon.png" alt=""></li>
+            <li class="nav_item_btn nav_item_fav" aria-label="Открыть избранное">
+                <img class="nav_btn_icon" src="./icon/favourite-btn-icon.png" alt="">
+                <span class="fav_badge" id="favBadge" aria-hidden="true"></span>
+            </li>
+            <li class="nav_item_btn nav_item_user"><img class="nav_btn_icon" src="./icon/user-btn-icon.png" alt=""></li>
+            <li class="nav_item_btn nav_item_cart" aria-label="Открыть корзину">
+                <img class="nav_btn_icon" src="./icon/Cart-btn-icon.png" alt="">
+                <span class="cart_badge" id="cartBadge" aria-hidden="true"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div id="favOverlay" class="fav-overlay" aria-hidden="true">
+        <div class="fav-drawer" role="dialog" aria-modal="true" aria-label="Избранное">
+            <div class="fav-header">
+                <h2 class="fav-title">Избранное</h2>
+                <button type="button" class="fav-close" id="favCloseBtn" aria-label="Закрыть избранное">&times;</button>
+            </div>
+            <div class="fav-items" id="favItems" aria-label="Товары в избранном"></div>
+        </div>
+    </div>
+
+    <div id="cartOverlay" class="cart-overlay" aria-hidden="true">
+        <div class="cart-drawer" role="dialog" aria-modal="true" aria-label="Корзина">
+            <div class="cart-header">
+                <h2 class="cart-title">Корзина</h2>
+                <button type="button" class="cart-close" id="cartCloseBtn" aria-label="Закрыть корзину">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems" aria-label="Товары в корзине"></div>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <span class="cart-summary-label">Итоговая сумма</span>
+                    <span class="cart-summary-value" id="cartTotal">0 ₽</span>
+                </div>
+                <button type="button" class="cart-checkout" id="checkoutBtn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="searchOverlay" class="search-overlay" aria-hidden="true">
+        <div class="search-modal" role="dialog" aria-modal="true" aria-label="Поиск">
+            <button type="button" class="search-close" aria-label="Закрыть поиск">&times;</button>
+            <h2 class="search-title">Поиск по каталогу</h2>
+            <form id="searchForm" action="./catalog.html" method="get">
+                <label class="visually-hidden" for="searchInput">Запрос</label>
+                <input type="search" name="q" id="searchInput" placeholder="Название украшения..." autocomplete="off">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-content">
+                <button class="close-modal" aria-label="Закрыть окно">&times;</button>
+                <div id="loginFormContainer" class="form-container">
+                    <div class="form-title">Добро пожаловать</div>
+                    <div class="form-subtitle">Пожалуйста, войдите в систему</div>
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <label>Адрес электронной почты</label>
+                            <input type="email" id="loginEmail" placeholder="example@domain.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Пароль</label>
+                            <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        </div>
+                        <div class="row-between">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe"> Запомнить меня
+                            </label>
+                            <a href="#" class="forgot-link" id="forgotPasswordLink">Забыли пароль?</a>
+                        </div>
+                        <button type="submit" class="btn-primary">ВОЙТИ</button>
+                    </form>
+                    <button id="showRegisterBtn" class="btn-secondary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                </div>
+                <div id="registerFormContainer" class="form-container hidden-form">
+                    <div class="form-title">Регистрация</div>
+                    <div class="form-subtitle">Пожалуйста, заполните данные</div>
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <label>ФИО</label>
+                            <input type="text" id="regName" placeholder="Иванов Иван Иванович" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Адрес электронной почты</label>
+                            <input type="email" id="regEmail" placeholder="hello@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Пароль</label>
+                            <input type="password" id="regPassword" placeholder="Создайте пароль" required>
+                        </div>
+                        <div class="terms-check">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="acceptTerms"> Я принимаю условия соглашения
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                    </form>
+                    <button id="showLoginBtn" class="btn-secondary">ВОЙТИ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="checkout-main">
+        <div class="container checkout-inner">
+            <h1 class="checkout-title">Оформление заказа</h1>
+            <div class="checkout-steps" id="checkoutStepsPills" aria-hidden="true">
+                <span class="checkout-step-pill is-active" data-step="0">1. Адрес доставки</span>
+                <span class="checkout-step-pill" data-step="1">2. Оплата</span>
+                <span class="checkout-step-pill" data-step="2">3. Проверка</span>
+            </div>
+
+            <div id="checkoutStep0" class="checkout-panel is-active">
+                <div class="checkout-field">
+                    <label for="fullName">ФИО получателя</label>
+                    <input type="text" id="fullName" name="fullName" autocomplete="name" placeholder="Иванова Анна Сергеевна">
+                    <div class="checkout-field-error" id="fullNameErr"></div>
+                </div>
+                <div class="checkout-field">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+7 (999) 123-45-67">
+                    <div class="checkout-field-error" id="phoneErr"></div>
+                </div>
+                <div class="checkout-field">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="Москва">
+                    <div class="checkout-field-error" id="cityErr"></div>
+                </div>
+                <div class="checkout-field">
+                    <label for="street">Улица</label>
+                    <input type="text" id="street" name="street" autocomplete="street-address" placeholder="ул. Примерная">
+                    <div class="checkout-field-error" id="streetErr"></div>
+                </div>
+                <div class="checkout-pay-grid">
+                    <div class="checkout-field">
+                        <label for="house">Дом</label>
+                        <input type="text" id="house" name="house" placeholder="12">
+                        <div class="checkout-field-error" id="houseErr"></div>
+                    </div>
+                    <div class="checkout-field">
+                        <label for="apartment">Квартира / офис</label>
+                        <input type="text" id="apartment" name="apartment" placeholder="45">
+                        <div class="checkout-field-error" id="apartmentErr"></div>
+                    </div>
+                </div>
+                <div class="checkout-field">
+                    <label for="comment">Комментарий курьеру</label>
+                    <textarea id="comment" name="comment" placeholder="Домофон, подъезд, время доставки..."></textarea>
+                    <div class="checkout-field-error" id="commentErr"></div>
+                </div>
+                <div class="checkout-nav">
+                    <a class="checkout-btn checkout-btn-secondary" href="./cart.html">Назад в корзину</a>
+                    <button type="button" class="checkout-btn checkout-btn-primary" id="addrNext">Далее</button>
+                </div>
+            </div>
+
+            <div id="checkoutStep1" class="checkout-panel">
+                <p class="checkout-hint">Данные карты проверяются по алгоритму Луна. Срок — не раньше текущего месяца.</p>
+                <div class="checkout-field">
+                    <label for="cardNumber">Номер карты</label>
+                    <input type="text" id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000">
+                    <div class="checkout-field-error" id="cardNumberErr"></div>
+                </div>
+                <div class="checkout-field">
+                    <label for="cardHolder">Имя на карте</label>
+                    <input type="text" id="cardHolder" name="cardHolder" autocomplete="cc-name" placeholder="IVAN IVANOV">
+                    <div class="checkout-field-error" id="cardHolderErr"></div>
+                </div>
+                <div class="checkout-pay-grid">
+                    <div class="checkout-field">
+                        <label for="cardExpiry">Срок (MM/YY)</label>
+                        <input type="text" id="cardExpiry" name="cardExpiry" autocomplete="cc-exp" placeholder="MM/YY">
+                        <div class="checkout-field-error" id="cardExpiryErr"></div>
+                    </div>
+                    <div class="checkout-field">
+                        <label for="cardCvc">CVC / CVV</label>
+                        <input type="password" id="cardCvc" name="cardCvc" autocomplete="cc-csc" placeholder="•••">
+                        <div class="checkout-field-error" id="cardCvcErr"></div>
+                    </div>
+                </div>
+                <div class="checkout-nav">
+                    <button type="button" class="checkout-btn checkout-btn-secondary" id="payBack">Назад</button>
+                    <button type="button" class="checkout-btn checkout-btn-primary" id="payNext">Далее</button>
+                </div>
+            </div>
+
+            <div id="checkoutStep2" class="checkout-panel">
+                <div id="reviewAddressBlock" class="checkout-review-block"></div>
+                <div id="reviewPaymentBlock" class="checkout-review-block"></div>
+                <div id="reviewItemsBlock" class="checkout-review-block"></div>
+                <div class="checkout-nav">
+                    <button type="button" class="checkout-btn checkout-btn-secondary" id="reviewBack">Назад</button>
+                    <button type="button" class="checkout-btn checkout-btn-primary" id="reviewConfirm">Подтвердить заказ</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="checkoutSuccess" class="checkout-success-overlay" aria-hidden="true">
+        <div class="checkout-success-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutSuccessTitle">
+            <div class="checkout-success-icon" aria-hidden="true">✓</div>
+            <h2 id="checkoutSuccessTitle">Заказ подтверждён</h2>
+            <p>Спасибо за покупку! Мы отправим уведомление на указанный телефон и свяжемся для уточнения доставки.</p>
+            <a href="./index.html" class="checkout-btn checkout-btn-primary" id="successToHome">На главную</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="FSP">
+            <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/беспл-дост.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Бесплатная доставка</h1>
+                    <p class="fsp_dsc">Наслаждайтесь покупками по выгодным ценам</p>
+                </div>
+            </div>
+            <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/возврат.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Возврат 15 дней</h1>
+                    <p class="fsp_dsc">На обмен в течение 15 дней</p>
+                </div>
+            </div>
+            <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/поддержка.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Поддержка 24/7</h1>
+                    <p class="fsp_dsc">24 часа в сутки, 7 дней в неделю</p>
+                </div>
+            </div>
+            <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/оплата.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Гибкая оплата</h1>
+                    <p class="fsp_dsc">Оплата несколькими кредитными картами</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer_content">
+            <div class="footer_contacts">
+                <h2 class="footer_section_title">КОНТАКТЫ</h2>
+                <p class="footer_phone">(405) 555-0128</p>
+            </div>
+            <div class="footer_subscribe">
+                <h2 class="subscribe_title">Будем на связи!</h2>
+                <p class="subscribe_desc">Что вас ждет? Эксклюзивные скидки, новинки и многое другое.</p>
+                <form class="subscribe_form" action="#" method="post">
+                    <input class="subscribe_input" type="email" name="email" placeholder="Электронная почта" required>
+                    <button class="subscribe_btn" type="submit">ПОДПИСАТЬСЯ</button>
+                </form>
+            </div>
+            <div class="footer_social">
+                <h2 class="footer_section_title footer_section_title_social">СОЦИАЛЬНЫЕ<br>СЕТИ</h2>
+                <div class="social_icons">
+                    <a class="social_link" href="#" aria-label="Telegram">
+                        <img class="social_icon" src="./icon/Tg.png" alt="">
+                    </a>
+                    <a class="social_link" href="#" aria-label="Vk">
+                        <img class="social_icon" src="./icon/VK.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="footer_copyright">Copyright © 2026 Radiant Violets. Все права защищены.</div>
+            <div class="payment_icons" aria-label="Платежные системы">
+                <img class="payment_icon" src="./icon/MIR.png" alt="МИР">
+                <img class="payment_icon" src="./icon/Visa.png" alt="Visa">
+                <img class="payment_icon" src="./icon/Mastercard.png" alt="Mastercard">
+            </div>
+        </div>
+    </footer>
+
+    <script src="./Js/cart.js"></script>
+    <script src="./Js/favorites.js"></script>
+    <script src="./Js/products-data.js"></script>
+    <script src="./Js/search.js"></script>
+    <script src="./Js/auth-api.js"></script>
+    <script src="./Js/auth-service.js"></script>
+    <script src="./Js/shop-orders.js"></script>
+    <script src="./Js/admin-auth.js"></script>
+    <script src="./Js/checkout.js"></script>
+    <script src="./Js/Menu-bar.js"></script>
+</body>
+</html>

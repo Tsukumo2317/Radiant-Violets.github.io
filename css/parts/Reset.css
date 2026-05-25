@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Prata&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+*:before {
+    box-sizing: border-box;
+}
+
+*:after {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-size: 18px;
+    height: auto;
+    font-weight: 400;
+    line-height: 100%;
+    font-family: "Cinzel", serif;    
+    background-color: rgb(255, 255, 255);
+    color: #080708;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Адаптивная типографика */
+@media (max-width: 1024px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+a {
+    color: #0B0404;
+    text-decoration: none;
+    transition: all 150ms ease-in-out;
+}
+
+a:hover {
+    color: #8B5CF6;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    outline: none !important;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+input {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+

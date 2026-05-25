@@ -1,0 +1,16 @@
+@import url(./parts/Reset.css);
+@import url(./parts/menu-bar.css);
+@import url(./parts/header.css);
+@import url(./parts/footer.css);
+@import url(./parts/main.css);
+@import url(./parts/bestsellers.css);
+@import url(./parts/reviews.css);
+@import url(./parts/cart.css);
+@import url(./parts/favorites.css);
+@import url(./parts/catalog.css);
+@import url(./parts/search.css);
+@import url(./parts/product.css);
+@import url(./parts/cart-page.css);
+@import url(./parts/checkout.css);
+@import url(./parts/account.css);
+@import url(./parts/admin.css);

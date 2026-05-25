@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RADIANT VIOLETS</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- favicon -->
+	<link type="image/x-icon" href="./icon/Logo.png"  rel="shortcut icon">
+    <link type="image/x-icon" href="./icon/Logo.png" rel="icon">
+</head>
+<body>
+    <!-- Меню -->
+    <div class="menu_bar">
+        <input type="checkbox" id="burger_menu" class="burger_toggle" aria-hidden="true">
+        <label for="burger_menu" class="burger_btn" aria-label="Открыть меню категорий">
+            <span class="burger_line"></span>
+            <span class="burger_line"></span>
+            <span class="burger_line"></span>
+        </label>
+
+        <label for="burger_menu" class="burger_backdrop" aria-hidden="true"></label>
+        <div class="burger_drawer" role="navigation" aria-label="Категории">
+            <ul class="burger_nav">
+                <li><a class="burger_link" href="./catalog.html?category=rings">КОЛЬЦА</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=earrings">СЕРЬГИ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=bracelets">БРАСЛЕТЫ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=necklaces">ПОДВЕСКИ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=necklaces">ОЖЕРЕЛЬЯ</a></li>
+                <li><a class="burger_link" href="./catalog.html?category=engagement">ПОМОЛВОЧНЫЕ КОЛЬЦА</a></li>
+            </ul>
+        </div>
+
+        <div class="logo"><a href="./index.html"><img class="logo_img" src="./icon/Logo.png" alt=""></a><span class="logo_text">RADIANT VIOLETS</span></div>
+
+        <ul class="nav">
+            <li class="nav_item"> <a class="nav_link" href="./catalog.html?category=rings">КОЛЬЦА</a></li>
+            <li class="nav_item"> <a class="nav_link" href="./catalog.html?category=earrings">СЕРЬГИ</a></li>
+            <li class="nav_item"> <a class="nav_link" href="./catalog.html?category=bracelets">БРАСЛЕТЫ</a></li>
+            <li class="nav_item"> <a class="nav_link" href="./catalog.html?category=necklaces">ПОДВЕСКИ</a></li>
+            <li class="nav_item"> <a class="nav_link" href="./catalog.html?category=necklaces">ОЖЕРЕЛЬЯ</a></li>
+        </ul>
+        <ul class="nav_btn">
+            <li class="nav_item_btn nav_item_search" role="button" tabindex="0" aria-label="Поиск по каталогу"><img class="nav_btn_icon" src="./icon/search-btn-icon.png" alt=""></li>
+            <li class="nav_item_btn nav_item_fav" aria-label="Открыть избранное">
+                <img class="nav_btn_icon" src="./icon/favourite-btn-icon.png" alt="">
+                <span class="fav_badge" id="favBadge" aria-hidden="true"></span>
+            </li>
+            <li class="nav_item_btn nav_item_user"><img class="nav_btn_icon" src="./icon/user-btn-icon.png" alt=""></li>
+            <li class="nav_item_btn nav_item_cart" aria-label="Открыть корзину">
+                <img class="nav_btn_icon" src="./icon/Cart-btn-icon.png" alt="">
+                <span class="cart_badge" id="cartBadge" aria-hidden="true"></span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Избранное -->
+    <div id="favOverlay" class="fav-overlay" aria-hidden="true">
+        <div class="fav-drawer" role="dialog" aria-modal="true" aria-label="Избранное">
+            <div class="fav-header">
+                <h2 class="fav-title">Избранное</h2>
+                <button type="button" class="fav-close" id="favCloseBtn" aria-label="Закрыть избранное">&times;</button>
+            </div>
+
+            <div class="fav-items" id="favItems" aria-label="Товары в избранном"></div>
+        </div>
+    </div>
+
+    <!-- Корзина -->
+    <div id="cartOverlay" class="cart-overlay" aria-hidden="true">
+        <div class="cart-drawer" role="dialog" aria-modal="true" aria-label="Корзина">
+            <div class="cart-header">
+                <h2 class="cart-title">Корзина</h2>
+                <button type="button" class="cart-close" id="cartCloseBtn" aria-label="Закрыть корзину">&times;</button>
+            </div>
+
+            <div class="cart-items" id="cartItems" aria-label="Товары в корзине"></div>
+
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <span class="cart-summary-label">Итоговая сумма</span>
+                    <span class="cart-summary-value" id="cartTotal">0 ₽</span>
+                </div>
+                <button type="button" class="cart-checkout" id="checkoutBtn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="searchOverlay" class="search-overlay" aria-hidden="true">
+        <div class="search-modal" role="dialog" aria-modal="true" aria-label="Поиск">
+            <button type="button" class="search-close" aria-label="Закрыть поиск">&times;</button>
+            <h2 class="search-title">Поиск по каталогу</h2>
+            <form id="searchForm" action="./catalog.html" method="get">
+                <label class="visually-hidden" for="searchInput">Запрос</label>
+                <input type="search" name="q" id="searchInput" placeholder="Название украшения..." autocomplete="off">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно (вход/регистрация) -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Закрыть окно">&times;</button>
+            
+            <!-- Форма входа -->
+            <div id="loginFormContainer" class="form-container">
+                <div class="form-title">Добро пожаловать</div>
+                <div class="form-subtitle">Пожалуйста, войдите в систему</div>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>Адрес электронной почты</label>
+                        <input type="email" id="loginEmail" placeholder="example@domain.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Пароль</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="row-between">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe"> Запомнить меня
+                        </label>
+                        <a href="#" class="forgot-link" id="forgotPasswordLink">Забыли пароль?</a>
+                    </div>
+                    <button type="submit" class="btn-primary">ВОЙТИ</button>
+                </form>
+                <button id="showRegisterBtn" class="btn-secondary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+            </div>
+
+            <!-- Форма регистрации (изначально скрыта) -->
+            <div id="registerFormContainer" class="form-container hidden-form">
+                <div class="form-title">Регистрация</div>
+                <div class="form-subtitle">Пожалуйста, заполните данные</div>
+                
+                <form id="registerForm">
+                    <div class="input-group">
+                        <label>ФИО</label>
+                        <input type="text" id="regName" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Адрес электронной почты</label>
+                        <input type="email" id="regEmail" placeholder="hello@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Пароль</label>
+                        <input type="password" id="regPassword" placeholder="Создайте пароль" required>
+                    </div>
+                    <div class="terms-check">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="acceptTerms"> Я принимаю условия соглашения
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                </form>
+                <button id="showLoginBtn" class="btn-secondary">ВОЙТИ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- HEADER -->
+    <header class="hero_header">
+        <div class="hero_container">
+            <div class="hero_left">
+                <h1 class="hero_title">
+                    Раскрывая красоту<br>
+                    ювелирного<br>
+                    искусства
+                </h1>
+                <p class="hero_desc">
+                    Тщательно отобранные самоцветы и искусная работа — для вечной роскоши.
+                </p>
+                <a class="hero_btn" href="./catalog.html">
+                    СМОТРЕТЬ КОЛЛЕКЦИЮ <span class="hero_btn_arrow">→</span>
+                </a>
+            </div>
+
+            <div class="hero_right">
+                <div class="hero_right_title_wrap">
+                    <h2 class="hero_right_title">Новые браслеты</h2>
+                </div>
+                <p class="hero_right_desc">
+                    Познакомьтесь с уникальными браслетами ручной работы, которые подчеркнут вашу неповторимость.
+                </p>
+            </div>
+
+            
+        </div>
+    </header>
+
+        <!-- MAIN -->
+     <main class="main">
+        <!-- КАТЕГОРИИ -->
+        <div class="Categories">
+        <h1 class="Categories_title">Товары по категориям</h1>
+        <div class="all_Categories">
+            <div class="Categories_links">
+                <a href="./catalog.html?category=rings" class="Categories_link">
+                    <h1 class="Categories_link_name">Кольца</h1>
+                    <div class="Categories_link_img"><img src="./icon/arrow-top.png" alt=""></div>
+                </a>
+                <a href="./catalog.html?category=earrings" class="Categories_link">
+                    <h1 class="Categories_link_name">Серьги</h1>
+                    <div class="Categories_link_img"><img src="./icon/arrow-top.png" alt=""></div>
+                </a>
+                <a href="./catalog.html?category=bracelets" class="Categories_link">
+                    <h1 class="Categories_link_name">Браслеты</h1>
+                    <div class="Categories_link_img"><img src="./icon/arrow-top.png" alt=""></div>
+                </a>
+                <a href="./catalog.html?category=necklaces" class="Categories_link">
+                    <h1 class="Categories_link_name">Подвевски</h1>
+                    <div class="Categories_link_img"><img src="./icon/arrow-top.png" alt=""></div>
+                </a>
+                <a href="./catalog.html?category=necklaces" class="Categories_link">
+                    <h1 class="Categories_link_name">Ожерелья</h1>
+                    <div class="Categories_link_img"><img src="./icon/arrow-top.png" alt=""></div>
+                </a>
+            </div>
+            <div class="Categories_img"><img src="./img/Categories.png" alt=""></div>
+        </div>
+     </div>
+
+        <!-- ФОРМА ОГРАНКИ -->
+         <div class="Cut_shape"> 
+            <h1 class="Cut_shape_title">Форма огранки</h1>
+            <div class="all_Cut_shape">
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Круглая.png" alt="">
+                    <h2 class="Shape_dsc">Круглая</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Подушка.png" alt="">
+                    <h2 class="Shape_dsc">Подушка</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Изумруд.png" alt="">
+                    <h2 class="Shape_dsc">Изумруд</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Груша.png" alt="">
+                    <h2 class="Shape_dsc">Груша</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Овальная.png" alt="">
+                    <h2 class="Shape_dsc">Овальная</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Принцесса.png" alt="">
+                    <h2 class="Shape_dsc">Принцесса</h2>
+                </div>
+                <div class="Shape">
+                    <img class="Shape_img" src="./img/Форма Огранки/Сердце.png" alt="">
+                    <h2 class="Shape_dsc">Сердце</h2>
+                </div>
+            </div>
+         </div>
+
+        <!-- ХИТЫ ПРОДАЖ -->
+          <div class="bestsellers">
+            <div class="bestsellers_block">
+                <h1 class="bestsellers_title">Хиты продаж</h1>
+                <a class="bestsellers_btn" href="./catalog.html">
+                    <h1 class="bestsellers_btn_name">Смотреть все</h1>
+                    <img class="bestsellers_img" src="./icon/arrow-top.png" alt="">
+                </a>
+            </div>
+          </div>
+
+        <!-- контейнер для динамической вставки карточек -->
+    <div class="products-grid" id="productsGrid"></div>
+
+        <!-- МИНИ БАННЕРЫ --> 
+         <div class="Mini_Banners">
+            <div class="banners">
+                <img src="./img/mini banner 1.png" alt="Мини баннер">
+                <div class="mini_banner_text">
+                    <h1 class="mini_banner_title">Ювелирные изделия, которые рассказывают вашу историю в сверкающих деталях.</h1>
+                    <p class="mini_banner_dsc">Отмечайте особые моменты жизни с изысканными украшениями, созданными для любви, красоты и элегантности. Найдите свое идеальное сокровище, которое говорит с вашим сердцем.</p>
+                    <a class="mini_banner_btn" href="##">
+                        <h1 class="mini_banner_btn_title">Выбрать украшение</h1>
+                        <img class="mini_banner_btn_img" src="./icon/arrow-top.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="banners">
+                <div class="mini_banner_text">
+                    <h1 class="mini_banner_title">Украсьте себя ювелирным искусством, которое раскрывает вашу суть</h1>
+                    <p class="mini_banner_dsc">Каждое изделие тщательно создано, чтобы подчеркнуть вашу индивидуальность. От изящных деталей до смелых акцентов — найдите свое идеальное украшение уже сегодня.</p>
+                    <a class="mini_banner_btn" href="##">
+                        <h1 class="mini_banner_btn_title">Выбрать украшение</h1>
+                        <img class="mini_banner_btn_img" src="./icon/arrow-top.png" alt="">
+                    </a>
+                </div>
+                <img src="./img/mini banner 2.png" alt="Мини баннер">
+            </div> 
+         </div>
+
+        <!-- ОСНОВНОЙ БАННЕР -->
+         <div class="main_banner">
+            <div class="main_banner_text">
+                    <h1 class="main_banner_title">Дополните свой повседневный образ великолепными украшениями</h1>
+                    <p class="main_banner_dsc">Будь то непринуждённый или роскошный стиль, наши изделия созданы, чтобы стать идеальным завершающим штрихом.</p>
+                    <a class="main_banner_btn" href="##">
+                        <h1 class="main_banner_btn_title">Подобрать акцент</h1>
+                        <img class="main_banner_btn_img" src="./icon/arrow-top.png" alt="">
+                    </a>
+                </div>
+         </div>
+
+        <!-- ОТЗЫВЫ -->
+          <div class="container reviews-container">
+        <div class="reviews-header">
+            <h2>Отзывы клиентов</h2>
+            <div class="slider-controls">
+                <button class="slider-btn prev-btn" id="prevReviewBtn">
+                    <i class="fas fa-chevron-left"><img src="./icon/arrow-left-btn.png" alt=""></i>
+                </button>
+                <button class="slider-btn next-btn" id="nextReviewBtn">
+                    <i class="fas fa-chevron-right"><img src="./icon/arrow-right-btn.png" alt=""></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="slider-track" id="sliderTrack">
+                <!-- Карточки отзывов добавлены через JavaScript -->
+            </div>
+        </div>
+            </div>
+
+        <!-- ВДОХНОВЛЯЙТЕСЬ -->
+    <div class="container inspiration-container">
+        <div class="inspiration-header">
+            <h2>Вдохновляйтесь</h2>
+            <div class="slider-controls">
+                <button class="slider-btn prev-btn" id="prevInspirationBtn"><img src="./icon/arrow-left-btn.png" alt="Назад"></button>
+                <button class="slider-btn next-btn" id="nextInspirationBtn"><img src="./icon/arrow-right-btn.png" alt="Вперёд"></button>
+            </div>
+        </div>
+        <div class="slider-wrapper">
+            <div class="slider-track" id="inspirationTrack"></div>
+        </div>
+    </div>
+     </main>
+
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="FSP">
+            <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/беспл-дост.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Бесплатная доставка</h1>
+                    <p class="fsp_dsc">Наслаждайтесь покупками по выгодным ценам</p>
+                </div>
+            </div>
+             <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/возврат.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Возврат 15 дней</h1>
+                    <p class="fsp_dsc">На обмен в течение 15 дней</p>
+                </div>
+            </div>
+             <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/поддержка.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Поддержка 24/7</h1>
+                    <p class="fsp_dsc">24 часа в сутки, 7 дней в неделю</p>
+                </div>
+            </div>
+             <div class="FSP_item">
+                <img class="fsp_icon" src="./icon/оплата.png" alt="">
+                <div class="fsp_text">
+                    <h1 class="fsp_title">Гибкая оплата</h1>
+                    <p class="fsp_dsc">Оплата несколькими кредитными картами</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_content">
+            <div class="footer_contacts">
+                <h2 class="footer_section_title">КОНТАКТЫ</h2>
+                <p class="footer_phone">(405) 555-0128</p>
+            </div>
+
+            <div class="footer_subscribe">
+                <h2 class="subscribe_title">Будем на связи!</h2>
+                <p class="subscribe_desc">Что вас ждет? Эксклюзивные скидки, новинки и многое другое.</p>
+
+                <form class="subscribe_form" action="#" method="post">
+                    <input class="subscribe_input" type="email" name="email" placeholder="Электронная почта" required>
+                    <button class="subscribe_btn" type="submit">ПОДПИСАТЬСЯ</button>
+                </form>
+            </div>
+
+            <div class="footer_social">
+                <h2 class="footer_section_title footer_section_title_social">СОЦИАЛЬНЫЕ<br>СЕТИ</h2>
+                <div class="social_icons">
+                    <a class="social_link" href="#" aria-label="Telegram">
+                        <img class="social_icon" src="./icon/Tg.png" alt="">
+                    </a>
+                    <a class="social_link" href="#" aria-label="Vk">
+                        <img class="social_icon" src="./icon/VK.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_bottom">
+            <div class="footer_copyright">Copyright © 2026 Radiant Violets. Все права защищены.</div>
+            <div class="payment_icons" aria-label="Платежные системы">
+                <img class="payment_icon" src="./icon/MIR.png" alt="МИР">
+                <img class="payment_icon" src="./icon/Visa.png" alt="Visa">
+                <img class="payment_icon" src="./icon/Mastercard.png" alt="Mastercard">
+            </div>
+        </div>
+    </footer>
+
+    <script src="./Js/cart.js"></script>
+    <script src="./Js/favorites.js"></script>
+    <script src="./Js/products-data.js"></script>
+    <script src="./Js/product-card.js"></script>
+    <script src="./Js/bestsellers.js"></script>
+    <script src="./Js/site-reviews.js"></script>
+    <script src="./Js/reviews.js"></script>
+    <script src="./Js/inspiration.js"></script>
+    <script src="./Js/search.js"></script>
+    <script src="./Js/auth-api.js"></script>
+    <script src="./Js/auth-service.js"></script>
+    <script src="./Js/admin-auth.js"></script>
+    <script src="./Js/Menu-bar.js"></script>
+</body>
+</html>
