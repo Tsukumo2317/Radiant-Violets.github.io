@@ -314,11 +314,9 @@ body {
 @keyframes page-enter {
     from {
         opacity: 0;
-        transform: translateY(8px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -352,16 +350,13 @@ body {
 /* ========== РњРћР”РђР›Р¬РќРћР• РћРљРќРћ ========== */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 1450;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.2s, opacity 0.2s ease;
@@ -558,7 +553,22 @@ body {
     }
 }
 
-/* Р°РґР°РїС‚РёРІ РјРѕРґР°Р»РєРё */
+/* адаптив модалки */
+@media (max-width: 768px) {
+    .modal-overlay {
+        align-items: flex-start;
+        padding: calc(var(--menu-bar-height, 96px) + 16px) 16px 24px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 550px) {
     .modal-content {
         padding: 28px 20px 32px;

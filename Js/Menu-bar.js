@@ -28,6 +28,10 @@
     // Открыть модальное окно (всегда показываем форму входа)
     function openModal() {
         showLoginForm();
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            modalOverlay.scrollTop = 0;
+        }
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
